@@ -1,0 +1,24 @@
+{% extends 'bugtracker/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Log in to your account</h1>
+    <br>
+    <div class ="content-section">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom -4">Log in to access more features!</legend>
+                    {{form|crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Log in</button>
+                </div>
+
+            </form>
+            <div class="border-top">
+                <small class="text-muted">
+                    Haven't registered an account yet? <a class="ml-1" href="{% url 'register' %}">Register</a>
+                </small>
+            </div>
+    </div>
+{% endblock content %}

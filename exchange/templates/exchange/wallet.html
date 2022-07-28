@@ -1,0 +1,29 @@
+{% extends 'bugtracker/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <h1>Your portfolio</h1>
+<br>
+    <div class="card card-body">
+        <table class="table table-responsive w-100 d-block d-md-table">
+          <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+          <h1>Total value: ${{ total_value }}</h1>
+          {% for portfolio in portfolios %}
+            <tr>
+              <td>{{ portfolio.token_name }}</td>
+                <td>{{ portfolio.token_symbol }}</td>
+              <td>{{ portfolio.amount_holding }}</td>
+                {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+    </div>
+<br>
+{% endblock content %}

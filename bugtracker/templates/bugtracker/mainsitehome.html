@@ -1,0 +1,16 @@
+{% extends 'bugtracker/base.html' %}
+{% load static %}
+{% block content %}
+{% endblock content %}
+{% block header-image %}
+    <body style="background-color:#dddddd;">
+<div class="container-fluid px-0">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'bugtracker-about' %}">
+            <img class="img-fluid" src="{% static "blog/images/house.jpg" %}" alt="home"/>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock header-image %}

@@ -1,0 +1,36 @@
+{% extends 'bugtracker/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>New account registration</h1>
+    <br>
+    <div class ="content-section">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom -4">Sign up to access more features!</legend>
+                    {{form|crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Register</button>
+                </div>
+
+            </form>
+            <div class="border-top">
+                <small class="text-muted">
+                    Already created an account? <a class="ml-1" href="{% url 'login' %}">Sign in</a>
+                </small>
+            </div>
+    </div>
+{% endblock content %}
+{% block sidebar %}
+<div class="col-sm-12 my-auto">
+          <br>
+          <div class="content-section">
+            <h3><span style="color:black;">Do I need to register?</span></h3>
+            <p class='text-muted'>
+                Registering an account is not required to view and query the bugtracker page. However, it is recommended if you would like to access more features, such as creating new bug reports
+                and creating a profile. I have used the account authentication included with django (register.apps.RegisterConfig) so all user accounts are encrypted.
+            </p>
+          </div>
+        </div>
+{% endblock sidebar %}

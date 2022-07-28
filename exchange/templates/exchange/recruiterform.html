@@ -1,0 +1,20 @@
+{% extends 'bugtracker/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+    <div class="card card-deck">
+        <img class="card-img-top" src="" alt="">
+        <div class="card-body">
+            <h4 class="card-title">I created this form as a way for recruiters and companies to register interest. </h4>
+            <h5 class="card-title">If you would prefer to call instead, please leave an email or text in advance (or a voicemail if I miss the call), as I have been receiving lots of unsolicited scam calls recently. This helps determine who is genuine.</h5>
+                <form action="{% url 'exchange-recruiterform' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="RecruiterForm">
+                    <fieldset class="form-group">
+                    {{recruiterform|crispy}}
+                    </fieldset>
+                    <input type="submit" value="Submit" class="btn btn-success">
+                </form>
+        </div>
+    </div>
+{% endblock content %}

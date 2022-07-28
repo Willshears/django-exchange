@@ -1,0 +1,34 @@
+{% extends 'bugtracker/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Bug Tracker</h1>
+    <br>
+    <div class="row">
+	    <div class="col">
+		    <div class="card card-body">
+                <a href="/bugtracker/?priority=&severity=&author={{request.user.id}}&status=&assigned_to="><button type="button"  class="btn btn-outline-secondary" title="My bug reports">My bug reports</button></a>
+                <br>
+                <form method="get">
+                    {{myFilter.form|crispy}}
+		        <button class="btn btn-dark" type="submit">Filter</button> </form>
+            </div>
+		</div>
+	</div>
+    <br>
+    {% for issue in issues %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ issue.author }}</a>
+                    <small class="text-muted">{{ issue.date_posted }}</small>
+                </div>
+                <h2><a class="article-title" href="#">{{ issue.title }}</a></h2>
+                <p class="article-content">{{ issue.content }}</p>
+                <small class="text-muted">Priority:  {{ issue.priority }}</small> <br>
+                <small class="text-muted">Severity:  {{ issue.severity }}</small> <br>
+                <small class="text-muted">Assigned to:  {{ issue.assigned_to }}</small> <br>
+                <small class="text-muted">Status:  {{ issue.status }}</small>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

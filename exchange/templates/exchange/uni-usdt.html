@@ -1,0 +1,141 @@
+{% extends 'bugtracker/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block chart %}
+        <!-- TradingView Widget BEGIN -->
+{#Market info #}
+    <style type = "text/css">
+         a{
+         color: #2c2c2c;
+         }
+     </style>
+<div class="container-fluid px-0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center breaking-news bg-white">
+                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center bg-dark py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Markets</span></div>
+                <marquee class="news-scroll" behavior="scroll" direction="right" onmouseover="this.stop();" onmouseout="this.start();"> <a href="avax-usdt">AVAX-USD</a> <span class="dot"></span><a href="btc-usdt">BTC-USD</a> <span class="dot"></span><a href="doge-usdt">DOGE-USD</a> <span class="dot"></span><a href="eth-usdt">ETH-USD</a> <span class="dot"></span><a href="avax-usdt">AVAX-USD</a> <span class="dot"></span><a href="ltc-usdt">LTC-USD</a> <span class="dot"></span><a href="sol-usdt">SOL-USD</a> <span class="dot"></span><a href="trx-usdt">TRX-USD</a> <span class="dot"></span><a href="uni-usdt">UNI-USD</a> <span class="dot"></span><a href="xlm-usdt">XLM-USD</a> <span class="dot"></span><a href="xrp-usdt">XRP-USD</a> <span class="dot"></span>
+                </marquee>
+            </div>
+        </div>
+    </div>
+</div>
+    {#Market info end #}
+    <div class="container-fluid px-5">
+    <br>
+    <h1><img class="img-responsive" src="{% static "exchange/images/uni.png" %}" alt="home"/>UNI-USD</h1>
+    <div id="price-container" hx-get="{% url 'exchange-uni-usdt' %}" hx-trigger="every 1s" hx-swap="innerHTML">
+        {% include 'exchange/partials/uni-price.html' %}
+        </div>
+      <div style="height: 800px", id="tradingview_610de"></div>
+      <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/uniUSD/?exchange=BITSTAMP" rel="noopener" target="_blank"><span class="blue-text">uniUSD Chart</span></a> by TradingView</div>
+      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+      <script type="text/javascript">
+      new TradingView.widget(
+      {
+      "autosize": true,
+      "symbol": "BITSTAMP:uniUSD",
+      "interval": "D",
+      "timezone": "Etc/UTC",
+      "theme": "light",
+      "style": "1",
+      "locale": "en",
+      "toolbar_bg": "#f1f3f6",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "container_id": "tradingview_610de"
+    }
+      );
+      </script>
+    </div>
+    {% endblock chart %}
+{% block content %}
+    <!-- TradingView Widget END -->
+    <h3>Spot Trade</h3>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card card-deck">
+                    <img class="card-img-top" src="" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Buy</h5>
+                            <form action="{% url 'exchange-uni-usdt' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_type" value="BuyForm">
+                                <fieldset class="form-group">
+                                {{buyform|crispy}}
+                                </fieldset>
+                                <input type="submit" value="Market Buy" class="btn btn-success">
+                                {% for uni_bal in uni_bals %}
+                                    {% if uni_bal.token_symbol == 'USD' %}
+                                        <br>
+                                        <small class="text-muted">Available USD:  {{ uni_bal.amount_holding }}</small>
+                                    {% endif %}
+                                {% endfor %}
+                            </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card card-deck">
+                    <img class="card-img-top" src="" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Sell</h5>
+                            <form action="{% url 'exchange-uni-usdt' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_type" value="SellForm">
+                                <fieldset class="form-group">
+                                {{sellform|crispy}}
+                                </fieldset>
+                                <input type="submit" value="Market Sell" class="btn btn-danger">
+                                {% for uni_bal in uni_bals %}
+                                    {% if uni_bal.token_symbol == 'UNI' %}
+                                        <br>
+                                        <small class="text-muted">Available uni:  {{ uni_bal.amount_holding }}</small>
+                                    {% endif %}
+                                {% endfor %}
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h3>Trade History</h3>
+     <div class="row">
+	    <div class="col">
+		    <div class="card card-body">
+                <br>
+                <form method="get">
+                    {{myFilter.form|crispy}}
+		        <button class="btn btn-dark" type="submit">Filter</button> </form>
+            </div>
+		</div>
+	</div>
+    <br>
+        <div class="card card-body">
+            <table class="table table-responsive w-100 d-block d-md-table">
+              <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Trade</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">USD +/- value</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for trade in trades %}
+                <tr>
+                  <td>{{ trade.date }}</td>
+                    <td>{{ trade.type }}</td>
+                  <td>{{ trade.token_name }}</td>
+                  <td>{{ trade.amount }}</td>
+                    <td>{{ trade.price }}</td>
+                    {% endfor %}
+                </tr>
+              </tbody>
+            </table>
+        </div>
+	<br>
+{% endblock content %}

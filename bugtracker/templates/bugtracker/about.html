@@ -1,0 +1,37 @@
+{% extends 'bugtracker/base.html' %}
+{% block content %}
+    <h1>About</h1>
+    <br>
+    <article class="media content-section">
+        <div class="media-body">
+            <h2><a class="article-title" href="#">Website description:</a></h2>
+            <div class="article-metadata">
+            </div>
+            <p class="article-content">I created this site as a portfolio and to experiment with side projects I am working on. The goal when creating this was to mostly use Django features to keep the code maintainable and scalable. The front end uses bootstrap to ensure it's responsive on any device. My first project on here is a bug tracker application, which uses a very similar set up to a blog or social media site in the way it has been configured. With the sim exchange, the prices were previously scraped from CoinDesk using BeautifulSoup 4, but now they are taken directly from the Binance API. As of 15/7/2022 the token prices are rendered on a 1 second ticker, displaying live prices in a similar way to the leading exchanges. For an extra layer of validation, two functions are used for the price, so the market price variable is calculated at the end of the buy/sell form validation process. This ensures that the system cannot be exploited.</p>
+            <br>
+            <h2><a class="article-title" href="#">Upcoming features:</a></h2>
+            <div class="article-metadata">
+            </div>
+            <ul>
+                <li>Content posting for non admin accounts</li>
+                <li>REST API integration</li>
+                <li>Upgraded user profiles</li>
+                <li>Simulated trading model integration</li>
+                <li>Custom charts: currently they are provided by TradingView, which displays a different value to Binance as they compile data from a variety of exchanges.</li>
+            </ul>
+            <br>
+            <h2><a class="article-title" href="#">Contact me:</a></h2>
+            <div class="article-metadata">
+                <ul>
+                <li><a href="https://www.linkedin.com/in/will-shears-00081b20a">LinkedIn</a></li>
+                <li><a href="https://github.com/Willshears">GitHub</a></li>
+                <li>Email: Willshears97@gmail.com</li>
+                </ul>
+                <br>
+            </div>
+
+        </div>
+    </article>
+{% endblock content %}
+
+

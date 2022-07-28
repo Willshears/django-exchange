@@ -1,0 +1,42 @@
+{% extends 'bugtracker/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <h1>Markets</h1>
+        <div class="card card-body">
+            <table class="table table-responsive w-100 d-block d-md-table">
+              <thead>
+                <tr>
+                    <th scope="col">Logo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td><img class="img-responsive" src="{% static "exchange/images/btc.png" %}" alt="home"/></td><td><a href="btc-usdt">Bitcoin</a></td><td><a href="btc-usdt">${{ current_btc_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/avax.png" %}" alt="home"/></td><td><a href="avax-usdt">Avalanche</a></td><td><a href="avax-usdt">${{ current_avax_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/doge.png" %}" alt="home"/></td><td><a href="doge-usdt">Dogecoin</a></td><td><a href="doge-usdt">${{ current_doge_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/dot.png" %}" alt="home"/></td><td><a href="dot-usdt">Polkadot</a></td><td><a href="dot-usdt">${{ current_dot_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/eth.png" %}" alt="home"/></td><td><a href="eth-usdt">Ethereum</a></td><td><a href="eth-usdt">${{ current_eth_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/ltc.png" %}" alt="home"/></td><td><a href="ltc-usdt">Litecoin</a></td><td><a href="ltc-usdt">${{ current_ltc_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/sol.png" %}" alt="home"/></td><td><a href="sol-usdt">Solana</a></td><td><a href="sol-usdt">${{ current_sol_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/trx.png" %}" alt="home"/></td><td><a href="trx-usdt">TRON</a></td><td><a href="trx-usdt">${{ current_trx_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/uni.png" %}" alt="home"/></td><td><a href="uni-usdt">Uniswap</a></td><td><a href="uni-usdt">${{ current_uni_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/xlm.png" %}" alt="home"/></td><td><a href="xlm-usdt">Stellar Lumen</a></td><td><a href="xlm-usdt">${{ current_xlm_price }}</a></td>
+                </tr>
+                <td><img class="img-responsive" src="{% static "exchange/images/xrp.png" %}" alt="home"/></td><td><a href="xrp-usdt">Ripple</a></td><td><a href="xrp-usdt">${{ current_xrp_price }}</a></td>
+              </tbody>
+            </table>
+        </div>
+	<br>
+{% endblock content %}
